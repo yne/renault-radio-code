@@ -1,0 +1,14 @@
+<form oninput="if(reportValidity())code.value=compute(a.value,b.value|0,c.value|0,d.value|0)">
+  <input name=a value=A size=1 maxlength=1 pattern="[A-Z]">
+  <input name=b value=1 type=number min=1 max=9>
+  <input name=c value=0 type=number min=0 max=9>
+  <input name=d value=0 type=number min=0 max=9>
+  <output name=code></output>
+</form>
+<script>
+  function compute(a,b,c,d) {
+    left = (a.charCodeAt(0) - 65) * 10 + b;
+    right = ((left + c * 10 + d) * 7) % 100;
+    return String((259 % Math.abs(left)) % 100).padStart(2,0) + (right%10) + (right/10|0) ;
+  }
+</script>
