@@ -1,14 +1,73 @@
-<form oninput="if(reportValidity())code.value=compute(a.value,b.value|0,c.value|0,d.value|0)">
-  <input name=a value=A size=1 maxlength=1 pattern="[A-Z]">
-  <input name=b value=1 type=number min=1 max=9>
-  <input name=c value=0 type=number min=0 max=9>
-  <input name=d value=0 type=number min=0 max=9>
-  <output name=code></output>
-</form>
-<script>
-  function compute(a,b,c,d) {
-    left = (a.charCodeAt(0) - 65) * 10 + b;
-    right = ((left + c * 10 + d) * 7) % 100;
-    return String((259 % Math.abs(left)) % 100).padStart(2,0) + (right%10) + (right/10|0) ;
-  }
-</script>
+<body onload="document.forms[0].oninput()">
+  <form oninput="if(reportValidity())code.value=compute(a.value,b.value|0,c.value|0,d.value|0)">
+    <input name=a value=A required maxlength=1 pattern="[A-Z]">
+    <input name=b value=1 required type=number min=1 max=9>
+    <input name=c value=0 required type=number min=0 max=9>
+    <input name=d value=0 required type=number min=0 max=9>
+    <output name=code></output>
+  </form>
+  <script>
+    function compute(a, b, c, d) {
+      left = (a.charCodeAt(0) - 65) * 10 + b;
+      right = ((left + c * 10 + d) * 7) % 100;
+      return String((259 % Math.abs(left)) % 100).padStart(2, 0) + (right % 10) + (right / 10 | 0);
+    }
+  </script>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input {
+      background: none;
+      border: none;
+      font-size: 1rem;
+      min-width: 1px;
+      text-align: center;
+      text-shadow: -0.05rem -0.05rem 0.15rem var(--light), 0.04rem 0.04rem 0.06rem var(--dark);
+      color: var(--back);
+    }
+
+    output:before {
+      content: '='
+    }
+
+    output {
+      grid-column: 1 / span 4;
+      justify-self: center;
+      text-shadow: -0.05rem -0.05rem 0.15rem var(--light), 0.04rem 0.04rem 0.06rem var(--dark);
+      color: var(--back);
+      font-family: monospace;
+      font-size: 1.5rem;
+    }
+
+    form {
+      box-shadow: 20px 20px 60px var(--dark),
+        -20px -20px 60px var(--light);
+      border-radius: 50px;
+      padding: .5rem 1em;
+      margin: 0;
+      display: grid;
+      grid-template-columns: auto auto auto auto;
+      max-width: 5em;
+    }
+
+    :root {
+      --back: #ddd;
+      --dark: #0004;
+      --light: #ffff;
+      background: var(--back);
+      font-size: 5em;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --back: #444;
+        --light: #fff2;
+        --dark: #000a;
+      }
+    }
+  </style>
+</body>
